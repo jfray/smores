@@ -4,6 +4,7 @@ from flask import Flask, request, redirect
 from redis import Redis
 from rq import Queue
 from twilio.twiml.messaging_response import MessagingResponse
+from smackcmd import commands
 
 import logging
 
@@ -24,16 +25,12 @@ def parse(req):
 
     return (from_n, body, body_parts, command)
 
-def join(): lambda: None
-def start(): lambda: None
+@app.route("/", methods=['GET'])
+def index():
+    return ("Commands are: %s%s" % (COMMAND_IDENTIFIER, ", #".join(commands.keys())), 200)
 
-commands = {
-    '%sjoin' % COMMAND_IDENTIFIER: join,
-    '%sstart' % COMMAND_IDENTIFIER: start,
-    }
-
-@app.route("/ssms", methods=['GET','POST'])
-def synch_sms_receive_with_reply():
+@app.route("/sync", methods=['POST'])
+def process_sync():
     """Respond to incoming sms with a simple text message"""
 
     # Start the TwiML response
@@ -44,8 +41,8 @@ def synch_sms_receive_with_reply():
 
     return str(resp)
 
-@app.route("/asms", methods=['POST'])
-def async_sms_receive():
+@app.route("/async", methods=['POST'])
+def process_async():
     q.enqueue(commands[command], from_n, body, body_parts)
     logging.info("Enqueued: %s" % command)
 
