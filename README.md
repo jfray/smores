@@ -20,5 +20,9 @@ SMS-based chat room, similar-ish to Slack. There's a built-in invite system, mut
 * Python 2.7.14 or higher, has not been tested with Python 3.x 
  * No reason necessarily that this couldn't work with 3.x, but has not been tested.
   * PRs welcome!
+* Neo4j installed for social graph
+ * I'm using homebrew, so it was `brew install neo4j`, which also depended on installing Java8: `brew cask install homebrew/cask-versions/java8`
 ## Twilio
 * This app requires a Twilio account, setup to post to whatever IP/port you've exposed on the server
+## Neo4J
+* Using the neomodel python library for now since it seems to provide a nice modeling abstraction. Might need to use the official driver for other stuff, so it's installed for now but will be removed if not used.
