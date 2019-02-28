@@ -4,7 +4,7 @@ from flask import Flask, request, redirect
 from redis import Redis
 from rq import Queue
 from twilio.twiml.messaging_response import MessagingResponse
-from commands import builtin, custom
+from smack_commands import builtin, custom
 
 import logging
 
