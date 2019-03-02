@@ -15,6 +15,9 @@ app = Flask(__name__)
 c = Commands()
 q = Queue(connection=Redis())
 
+combined = builtin.commands.copy()
+combined.update(custom.commands)
+
 def parse(req):
     from_n = req.form['from']
     body = req.form['body']
