@@ -4,13 +4,15 @@ from flask import Flask, request, redirect
 from redis import Redis
 from rq import Queue
 from twilio.twiml.messaging_response import MessagingResponse
-from smack_commands import builtin, custom
+from smack.commands import Commands
 
 import logging
 
 COMMAND_IDENTIFIER = "#"
 
 app = Flask(__name__)
+
+c = Commands()
 q = Queue(connection=Redis())
 
 combined = builtin.commands.copy()
@@ -47,7 +49,7 @@ def process_sync():
 @app.route("/async", methods=['POST'])
 def process_async():
     from_n, body, body_parts, command = parse(request)
-    q.enqueue(combined[command], from_n, body, body_parts)
+    q.enqueue(c.combined[command], from_n, body, body_parts)
     logging.info("Enqueued: %s" % command)
 
     return ('', 204)
