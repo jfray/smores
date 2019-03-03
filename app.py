@@ -5,33 +5,22 @@ from redis import Redis
 from rq import Queue
 from twilio.twiml.messaging_response import MessagingResponse
 from smack.commands import Commands
+from smack.message import Message
 
 import logging
-
-COMMAND_IDENTIFIER = "#"
+import smack.config as config
 
 app = Flask(__name__)
 
 c = Commands()
 q = Queue(connection=Redis())
-
-def parse(req):
-    from_n = req.form['from']
-    body = req.form['body']
-
-    body_parts = body.split()
-    if body.startswith(COMMAND_IDENTIFIER):
-        command = body_parts[0].lstrip('#').lower()
-    else:
-        command = None
-
-    return (from_n, body, body_parts, command)
+m = Message()
 
 @app.route("/", methods=['GET'])
 def index():
-    return ("Commands are: %s%s" % (COMMAND_IDENTIFIER, ", #".join(combined.keys())), 200)
+    return ("Commands are: %s%s" % (config.COMMAND_IDENTIFIER, ", #".join(c.combined.keys())), 200)
 
-@app.route("/sync", methods=['POST'])
+@app.route("/txt/sync", methods=['POST'])
 def process_sync():
     """Respond to incoming sms with a simple text message"""
 
@@ -43,9 +32,9 @@ def process_sync():
 
     return str(resp)
 
-@app.route("/async", methods=['POST'])
+@app.route("/txt/async", methods=['POST'])
 def process_async():
-    from_n, body, body_parts, command = parse(request)
+    from_n, body, body_parts, command = m.parse(request)
     q.enqueue(c.combined[command], from_n, body, body_parts)
     logging.info("Enqueued: %s" % command)
 
