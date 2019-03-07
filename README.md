@@ -31,3 +31,5 @@ SMS-based chat room, similar-ish to Slack. There's a built-in invite system, mut
 * `rq worker` will process whatever is currently in the queue
 * `rq info <default|failed>` will give information about what's currently in the queue
 * `rq empty <default|failed>` will clear the specified queue
+## Honcho
+* honcho start will start all your services
