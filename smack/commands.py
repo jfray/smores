@@ -1,4 +1,4 @@
-from message import Message
+from .message import Message
 import os
 
 msg = Message()
@@ -31,158 +31,158 @@ class Commands:
     @classmethod
     def cmd_help(self, from_n, body, body_parts):
         
-        print "[BUILTIN] command: help"
-        print "from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts)
+        print("[BUILTIN] command: help")
+        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
 
         message = msg.send(
                     to="+15107755852",
                     body="Test message for Josh: #cmd_help"
                 )
 
-        print message
+        print(message)
         
     @classmethod
     def cmd_invite(self, from_n, body, body_parts):
-        print "[BUILTIN] command: invite"
-        print "from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts)
+        print("[BUILTIN] command: invite")
+        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
 
         message = msg.send(
                     to="+15107755852",
                     body="Test message for Josh: #cmd_invite"
                 )
 
-        print message
+        print(message)
 
 
     @classmethod
     def cmd_join(self, from_n, body, body_parts):
-        print "[BUILTIN] command: join"
-        print "from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts)
+        print("[BUILTIN] command: join")
+        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
         
         message = msg.send(
                     to="+15107755852",
                     body="Test message for Josh: #cmd_join"
                 )
 
-        print message
+        print(message)
 
 
     @classmethod
     def cmd_list(self, from_n, body, body_parts):
-        print "[BUILTIN] command: list"
-        print "from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts)
+        print("[BUILTIN] command: list")
+        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
         
         message = msg.send(
                     to="+15107755852",
                     body="Test message for Josh: #cmd_list"
                 )
 
-        print message
+        print(message)
 
     @classmethod
     def cmd_mute(self, from_n, body, body_parts):
-        print "[BUILTIN] command: mute"
-        print "from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts)
+        print("[BUILTIN] command: mute")
+        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
 
         message = msg.send(
                     to="+15107755852",
                     body="Test message for Josh: #cmd_mute"
                 )
 
-        print message
+        print(message)
 
     @classmethod
     def cmd_private(self, from_n, body, body_parts):
-        print "[BUILTIN] command: private"
-        print "from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts)
+        print("[BUILTIN] command: private")
+        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
 
         message = msg.send(
                     to="+15107755852",
                     body="Test message for Josh: #cmd_private"
                 )
 
-        print message
+        print(message)
 
     @classmethod
     def cmd_resend(self, from_n, body, body_parts):
-        print "[BUILTIN] command: resend"
-        print "from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts)
+        print("[BUILTIN] command: resend")
+        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
 
         message = msg.send(
                     to="+15107755852",
                     body="Test message for Josh: #cmd_resend"
                 )
 
-        print message
+        print(message)
 
     @classmethod
     def cmd_start(self, from_n, body, body_parts):
-        print "[BUILTIN] command: start"
-        print "from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts)
+        print("[BUILTIN] command: start")
+        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
 
         message = msg.send(
                     to="+15107755852",
                     body="Test message for Josh: #cmd_start"
                 )
 
-        print message
+        print(message)
 
     @classmethod
     def cmd_stop(self, from_n, body, body_parts):
-        print "[BUILTIN] command: stop"
-        print "from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts)
+        print("[BUILTIN] command: stop")
+        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
 
         message = msg.send(
                     to="+15107755852",
                     body="Test message for Josh: #cmd_stop"
                 )
 
-        print message
+        print(message)
 
     @classmethod
     def cmd_start(self, from_n, body, body_parts):
-        print "[BUILTIN] command: start"
-        print "from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts)
+        print("[BUILTIN] command: start")
+        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
 
         message = msg.send(
                     to="+15107755852",
                     body="Test message for Josh: #cmd_start"
                 )
 
-        print message
+        print(message)
 
     @classmethod
     def cmd_update(self, from_n, body, body_parts):
-        print "[BUILTIN] command: update"
-        print "from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts)
+        print("[BUILTIN] command: update")
+        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
         
         message = msg.send(
                     to="+15107755852",
                     body="Test message for Josh: #cmd_update"
                 )
 
-        print message
+        print(message)
 
     @classmethod
     def cmd_who(self, from_n, body, body_parts):
-        print "[BUILTIN] command: who"
-        print "from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts)
+        print("[BUILTIN] command: who")
+        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
 
         message = msg.send(
                     to="+15107755852",
                     body="Test message for Josh: #cmd_who"
                 )
 
-        print message
+        print(message)
 
     @classmethod
     def cmd_test(self, from_n, body, body_parts):
-        print "[CUSTOM] command: test"
-        print "from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts)
+        print("[CUSTOM] command: test")
+        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
 
         message = msg.send(
                     to="+15107755852",
                     body="Test message for Josh: #cmd_test"
                 )
 
-        print message
+        print(message)

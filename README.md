@@ -17,9 +17,8 @@ SMS-based chat room, similar-ish to Slack. There's a built-in invite system, mut
 
 # Requirements
 * Publicly addressable machine/VPS/etc.
-* Python 2.7.14 or higher, has not been tested with Python 3.x 
- * No reason necessarily that this couldn't work with 3.x, but has not been tested.
-  * PRs welcome!
+* Python 3.7.2
+* PRs welcome!
 * Redis server installed
  * `brew install redis-server` and follow the instructions to get it to start on boot
 * Neo4j installed for social graph
