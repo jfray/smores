@@ -1,7 +1,7 @@
 from twilio.rest import Client
-from worker import Worker
+from .worker import Worker
 
-import config
+from . import config
 import os
 
 class Message:
