@@ -33,3 +33,13 @@ SMS-based chat room, similar-ish to Slack. There's a built-in invite system, mut
 * `rq empty <default|failed>` will clear the specified queue
 ## Honcho
 * honcho start will start all your services
+
+# User/Phone Data Model
+* Number: User's phone number, string, length=10 (US Only), 25 (Int'l)
+ * Can't be integer because many phone numbers start with 0 (due to country codes)
+ * Second pass will be to abstract out country code and phone number
+* Owner: ForeignKey to Flask's User/Auth model if possible
+* Muted_by: Many to Many with User
+* get_reply_numbers: Function that returns all phone numbers, excluding your own, excluding any that you have been muted by, and excluding any that are is_active = False
+* is_active, Bool default True
+is_private = Bool default True
