@@ -1,9 +1,11 @@
-from .message import Message
-import os
+import subprocess
 
-msg = Message()
+from .message import Message
+from os.path import expanduser
 
 class Commands:
+
+    msg = Message()
 
     def __init__(self):
 
@@ -22,167 +24,227 @@ class Commands:
         }
 
         self.custom = {
-            'test': self.cmd_test
+            'test': self.cmd_test,
+            'random': self.cmd_random
         }
 
         self.combined = self.builtin.copy()
         self.combined.update(self.custom)
 
     @classmethod
-    def cmd_help(self, from_n, body, body_parts):
-        
-        print("[BUILTIN] command: help")
-        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
-
-        message = msg.send(
-                    to="+15107755852",
-                    body="Test message for Josh: #cmd_help"
-                )
-
-        print(message)
-        
+    def cmd_help(self, resp=None):
+        if len(resp['args']) != 1:
+            self.msg.send(
+                    to=resp['From'],
+                    body=self.usage()
+            )
+        else:
+            self.msg.send(
+                    resp['From'],
+                    body=self.usage(command=resp['args'][0])
+            )
+            
     @classmethod
-    def cmd_invite(self, from_n, body, body_parts):
-        print("[BUILTIN] command: invite")
-        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
-
-        message = msg.send(
-                    to="+15107755852",
-                    body="Test message for Josh: #cmd_invite"
+    def cmd_invite(self, resp=None):
+        if len(resp['args']) != 1:
+            self.msg.send(
+                    resp['From'],
+                    body=self.usage('invite')
+                    )
+        else:
+            self.msg.send(
+                    resp['From'],
+                    body="This is where an invite command would be"
                 )
-
-        print(message)
-
-
-    @classmethod
-    def cmd_join(self, from_n, body, body_parts):
-        print("[BUILTIN] command: join")
-        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
-        
-        message = msg.send(
-                    to="+15107755852",
-                    body="Test message for Josh: #cmd_join"
-                )
-
-        print(message)
-
 
     @classmethod
-    def cmd_list(self, from_n, body, body_parts):
-        print("[BUILTIN] command: list")
-        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
-        
-        message = msg.send(
-                    to="+15107755852",
-                    body="Test message for Josh: #cmd_list"
+    def cmd_join(self, resp=None):
+        if len(resp['args']) != 1:
+            self.msg.send(
+                    resp['From'],
+                    body=self.usage('join')
+                    )
+        else:
+            self.msg.send(
+                    resp['From'],
+                    body="This is where a join command would be"
                 )
-
-        print(message)
 
     @classmethod
-    def cmd_mute(self, from_n, body, body_parts):
-        print("[BUILTIN] command: mute")
-        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
-
-        message = msg.send(
-                    to="+15107755852",
-                    body="Test message for Josh: #cmd_mute"
+    def cmd_list(self, resp=None):
+        if len(resp['args']) != 0:
+            self.msg.send(
+                    resp['From'],
+                    body=self.usage('list')
+                    )
+        else:
+            self.msg.send(
+                    resp['From'],
+                    body="This is where a list command would be"
                 )
-
-        print(message)
 
     @classmethod
-    def cmd_private(self, from_n, body, body_parts):
-        print("[BUILTIN] command: private")
-        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
-
-        message = msg.send(
-                    to="+15107755852",
-                    body="Test message for Josh: #cmd_private"
+    def cmd_mute(self, resp=None):
+        if len(resp['args']) != 2:
+            self.msg.send(
+                    resp['From'],
+                    body=self.usage('mute')
+                    )
+        else:
+            self.msg.send(
+                    resp['From'],
+                    body="This is where a mute command would be"
                 )
-
-        print(message)
 
     @classmethod
-    def cmd_resend(self, from_n, body, body_parts):
-        print("[BUILTIN] command: resend")
-        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
-
-        message = msg.send(
-                    to="+15107755852",
-                    body="Test message for Josh: #cmd_resend"
+    def cmd_private(self, resp=None):
+        if len(resp['args']) != 1:
+            self.msg.send(
+                    resp['From'],
+                    body=self.usage('private')
+                    )
+        else:
+            self.msg.send(
+                    resp['From'],
+                    body="This is where a private command would be"
                 )
-
-        print(message)
 
     @classmethod
-    def cmd_start(self, from_n, body, body_parts):
-        print("[BUILTIN] command: start")
-        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
-
-        message = msg.send(
-                    to="+15107755852",
-                    body="Test message for Josh: #cmd_start"
+    def cmd_resend(self, resp=None):
+        if len(resp['args']) != 1:
+            self.msg.send(
+                    resp['From'],
+                    body=self.usage('resend')
+                    )
+        else:
+            self.msg.send(
+                    resp['From'],
+                    body="This is where a resend command would be"
                 )
-
-        print(message)
 
     @classmethod
-    def cmd_stop(self, from_n, body, body_parts):
-        print("[BUILTIN] command: stop")
-        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
-
-        message = msg.send(
-                    to="+15107755852",
-                    body="Test message for Josh: #cmd_stop"
+    def cmd_start(self, resp=None):
+        if len(resp['args']) != 0:
+            self.msg.send(
+                    resp['From'],
+                    body=self.usage('start')
+                    )
+        else:
+            self.msg.send(
+                    resp['From'],
+                    body="This is where a start command would be"
                 )
-
-        print(message)
 
     @classmethod
-    def cmd_start(self, from_n, body, body_parts):
-        print("[BUILTIN] command: start")
-        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
-
-        message = msg.send(
-                    to="+15107755852",
-                    body="Test message for Josh: #cmd_start"
+    def cmd_stop(self, resp=None):
+        if len(resp['args']) != 0:
+            self.msg.send(
+                    resp['From'],
+                    body=self.usage('stop')
+                    )
+        else:
+            self.msg.send(
+                    resp['From'],
+                    body="This is where a stop command would be"
                 )
-
-        print(message)
+    
+    @classmethod
+    def cmd_update(self, resp=None):
+        if len(resp['args']) != 1:
+            self.msg.send(
+                    resp['From'],
+                    body=self.usage('update')
+                    )
+        else:
+            self.msg.send(
+                    resp['From'],
+                    body="This is where an update command would be"
+                )
 
     @classmethod
-    def cmd_update(self, from_n, body, body_parts):
-        print("[BUILTIN] command: update")
-        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
-        
-        message = msg.send(
-                    to="+15107755852",
-                    body="Test message for Josh: #cmd_update"
+    def cmd_who(self, resp=None):
+        if len(resp['args']) != 0:
+            self.msg.send(
+                    resp['From'],
+                    body=self.usage('who')
+                    )
+        else:
+            self.msg.send(
+                    resp['From'],
+                    body="This is where a who command would be"
                 )
 
-        print(message)
+    ## Please add your custom commands below
 
     @classmethod
-    def cmd_who(self, from_n, body, body_parts):
-        print("[BUILTIN] command: who")
-        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
+    def cmd_random(self, resp=None):
+        if len(resp['args']) != 1:
+            self.msg.send(
+                    resp['From'],
+                    body=self.usage('random')
+                    )
+        else:
+            what_type = resp['args'][0]
 
-        message = msg.send(
-                    to="+15107755852",
-                    body="Test message for Josh: #cmd_who"
+            result = subprocess.check_output([
+                    "/usr/local/Cellar/python/3.6.5/Frameworks/Python.framework/Versions/3.6/bin/python3", 
+                    expanduser("~/python/bin/random_thing_picker.py"),
+                    "--iterations", 
+                    "100000",
+                    "--name",
+                    what_type.capitalize(),
+                    "--show-winner",
+                    expanduser("~/%s.txt" % what_type)
+                ], 
+                universal_newlines=True)
+
+            result = str(result)
+
+            output = []
+            for line in result.splitlines():
+                output.append(line)
+
+            self.msg.send(
+                    resp['From'],
+                    body="\n".join(output)
                 )
-
-        print(message)
-
+    
     @classmethod
-    def cmd_test(self, from_n, body, body_parts):
-        print("[CUSTOM] command: test")
-        print("from_n: %s body: %s body_parts: %s" % (from_n, body, body_parts))
+    def cmd_test(self, resp=None):
+        if len(resp['args']) != 0:
+            self.msg.send(
+                      resp['From'],
+                      body=self.usage('test')
+                      )
+        else:
+            self.msg.send(
+                      resp['From'],
+                      body="This is where a test command would be"
+                      )
 
-        message = msg.send(
-                    to="+15107755852",
-                    body="Test message for Josh: #cmd_test"
-                )
+    def usage(command=None):
+        help_commands = {
+            'help': '#help: List help for all commands',
+            'help': '#help <command>: List help for specified command',
+            'invite': '#invite <phone_number>: Invite a new user via SMS to the phone number provided',
+            'join': '#join <nickname>: Join the chat and set your nickname (20 letter max)',
+            'list': '#list: List all users in the room',
+            'mute': '#mute <nickname> <on|off>: Stop or start receiving messages from this user',
+            'private': '#private <on|off>: Make your profile public or private. Default is private',
+            'random': '#random <movie|food|mcu|marvel>: Receive a random choice from these topics',
+            'resend': '#resend <number>: Resend the previous <number> of messages sent to you',
+            'start': '#start: Start receiving messages from this Smack room',
+            'stop': '#stop: Stop receiving messages from this Smack room',
+            'test': '#test',
+            'update': '#update <new_nickname>: Update your nickname (20 letter max)',
+            'who': '#who <nickname>: Get information about a user by providing their nickname if the profile is set '
+            'to public. Default is private'
+            }
 
-        print(message)
+        if command:
+            if command in help_commands:
+                return "Usage: %s" % help_commands[command]
+            else:
+                return "Invalid command: %s. Text #help for a list of commands." % command
+        else:
+            return "\n ".join(help_commands.values())
