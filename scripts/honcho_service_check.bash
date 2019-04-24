@@ -9,7 +9,7 @@ while [ 1 ]; do
 
   if brew services list | grep "${service}" | grep -i "start" | grep -v grep >/dev/null 2>&1; then
     [[ ${show_text} -eq 0 ]] && echo "brew services list for ${service} is running."
-    pid_of=$(launchctl list | grep "${service}" | grep -v grep | awk '{ print $1 }')
+    pid_of=$(launchctl list | grep "homebrew.mxcl.${service}" | grep -v grep | awk '{ print $1 }')
     if [[ -n "${pid_of}" ]] && ps ${pid_of} >/dev/null 2>&1; then
       [[ ${show_text} -eq 0 ]] && echo "ps shows ${service} is running. PID: ${pid_of}"
     else

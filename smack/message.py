@@ -12,16 +12,23 @@ class Message:
         self.twilio_number = os.environ.get('TWILIO_NUMBER')
 
     def parse(self, request):
-        from_n = request.form['From']
-        body = request.form['Body']
 
-        body_parts = body.split()
-        if body.startswith(config.COMMAND_IDENTIFIER):
+        resp = {}
+
+        # convert the custom type received from Twilio into a usable dictionary
+        for key in request.form.keys():
+            resp[key] = request.form[key]
+
+        body_parts = request.form['Body'].split()
+        if request.form['Body'].startswith(config.COMMAND_IDENTIFIER):
             command = body_parts[0].lstrip(config.COMMAND_IDENTIFIER).lower()
         else:
             command = None
 
-        return (from_n, body, body_parts, command)
+        resp['command'] = command
+        resp['args'] = body_parts[1:]
+
+        return resp
 
     def send(self, to, body):
         client = Client(self.account_sid, self.auth_token)

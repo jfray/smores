@@ -34,8 +34,9 @@ def process_sync():
 
 @app.route("/txt/async", methods=['POST'])
 def process_async():
-    from_n, body, body_parts, command = m.parse(request)
-    q.enqueue(c.combined[command], from_n, body, body_parts)
+    resp = m.parse(request)
+    command = resp['command']
+    q.enqueue(c.combined[command], resp)
     logging.info("Enqueued: %s" % command)
 
     return ('', 204)
