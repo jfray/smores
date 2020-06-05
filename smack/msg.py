@@ -4,7 +4,7 @@ from .worker import Worker
 from . import config
 import os
 
-class Message:
+class Msg:
 
     def __init__(self):
         self.account_sid = os.environ.get('TWILIO_ACCOUNT_SID')
@@ -30,13 +30,13 @@ class Message:
 
         return resp
 
-    def send(self, to, body):
+    def send(self, resp):
         client = Client(self.account_sid, self.auth_token)
 
         message = client.messages.create(
-                body = body,
+                body = resp['Body'],
                 from_= self.twilio_number,
-                to = to
+                to = resp['From']
                 )
 
         return message.sid

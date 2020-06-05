@@ -64,3 +64,8 @@ settings.py
 
 # Honcho
 .env
+
+# Flango experiment
+flango_temp/*
+/db.sqlite3
+app.log

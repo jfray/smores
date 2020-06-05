@@ -1,7 +1,16 @@
+# original pip
 flask
-rq
+django-rq
 requests
 twilio
 neomodel
 honcho
 python-dotenv
+
+# from flango
+whitenoise
+dj-database-url
+psycopg2
+django
+django-heroku
+gunicorn
